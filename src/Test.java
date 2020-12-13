@@ -4,8 +4,10 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Optional;
- 
+import java.util.SortedMap;
+
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.ListBranchCommand.ListMode;
 import org.eclipse.jgit.api.Status;
@@ -64,13 +66,18 @@ public class Test {
 			
 			/* On print tous les commits*/
 			String treeName = "refs/heads/master"; // tag or branch
-			HashMap<String, Integer> valeurCSV = new HashMap<String, Integer>();
+			LinkedHashMap<String, Integer> valeurCSV = new LinkedHashMap<String, Integer>();
 			for (RevCommit commit : git.log().add(repo.resolve(treeName)).call()) {		    
 			    git.checkout().setName(commit.getName()).call();
 			    valeurCSV.put(commit.getName(), nombreClasses(localRepoDir.listFiles()));
+				System.out.println(valeurCSV);
+
 			}
-			
+			System.out.println(valeurCSV);
+			new CSV(valeurCSV);
+
 		}
+
  
 	}
 	public static void deleteDirectoryRecursion(File file) throws IOException {
@@ -112,5 +119,5 @@ public class Test {
 		   }
 		return nombre;
 	}
-	}
+}
 

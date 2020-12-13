@@ -2,12 +2,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.List;
 
 public class CSV {
-	private boolean existe = true;
-
 		//Delimiter used in CSV file
 		private static final String COMMA_DELIMITER = ", ";
 		private static final String NEW_LINE_SEPARATOR = "\n";
@@ -15,15 +14,15 @@ public class CSV {
 	    //CSV file header
 	    private static final String FILE_HEADER = "id_version, n_classes";
 	    
-		public CSV(List<Classe> ListeClasse) {
-			 ecrireCSV(ListeClasse);
+		public CSV(LinkedHashMap<String, Integer> valeurCSV) {
+			 ecrireCSV(valeurCSV);
 		 }
 		
 		  /**
 		   * permet d'ecrire le csv de classe 
 		   * @return un fichier csv creer remplis d'informations sur les classes
 		   * */ 
-		    public void ecrireCSV(List<Classe> ListeClasse){
+		    public void ecrireCSV(LinkedHashMap<String, Integer> valeurCSV  ){
  
 				String fileName = "file.csv";
 		        FileWriter fileWriter = null;
@@ -38,13 +37,15 @@ public class CSV {
 		            fileWriter.append(NEW_LINE_SEPARATOR);
 		             
 		            //Write a new student object list to the CSV file
-		            for (Classe classe : ListeClasse) {
-		            	fileWriter.append(String.valueOf(classe.version()));  //id_version hexadecimal
+		           
+		            for (Map.Entry value : valeurCSV.entrySet()) {
+		            	fileWriter.append(String.valueOf(value.getKey()));  //id_version hexadecimal
 		                fileWriter.append(COMMA_DELIMITER);
-		                fileWriter.append(String.valueOf(classe.classes())); //n_classes nombre de fichier java
+		                fileWriter.append(String.valueOf(value.getValue())); //n_classes nombre de fichier java
 		                fileWriter.append(COMMA_DELIMITER);
 		                fileWriter.append(NEW_LINE_SEPARATOR);
-		            }   
+		            }		              
+		           
 		        } catch (Exception e) {
 		            System.out.println("Error in CsvFileWriter !!!");
 		            e.printStackTrace();
@@ -58,6 +59,5 @@ public class CSV {
 		                e.printStackTrace();
 		            } 
 		        }
-		    }
- 
+		  }
 	}
