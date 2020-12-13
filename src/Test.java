@@ -36,7 +36,7 @@ public class Test {
 		 * Equivalent of --> $ git clone https://github.com/Ravikharatmal/test.git
 		 */
 		System.out.println("\n>>> Cloning repository\n");
-		deleteDirectoryRecursionJava6(localRepoDir);
+		deleteDirectoryRecursion(localRepoDir);
 		Repository repo = Git.cloneRepository().setProgressMonitor(consoleProgressMonitor).setDirectory(localRepoDir).setURI("https://github.com/laurencefortin/ift3913-tp4").call().getRepository();
  
 		try (Git git = new Git(repo)) {
@@ -65,19 +65,19 @@ public class Test {
 			String treeName = "refs/heads/master"; // tag or branch
 			for (RevCommit commit : git.log().add(repo.resolve(treeName)).call()) {
 			    System.out.println(commit.getName());
-			    git.checkout().setName(commit.getName()).call(); 
+			    git.checkout().setName(commit.getName()).call();
+			    System.out.println(nombreClasses(localRepoDir.listFiles()));
 			}
-			//deleteDirectoryRecursionJava6(localRepoDir);
 			
 		}
  
 	}
-	public static void deleteDirectoryRecursionJava6(File file) throws IOException {
+	public static void deleteDirectoryRecursion(File file) throws IOException {
 		  if (file.isDirectory()) {
 			    File[] entries = file.listFiles();
 			    if (entries != null) {
 			      for (File entry : entries) {
-			        deleteDirectoryRecursionJava6(entry);
+			        deleteDirectoryRecursion(entry);
 			      }
 			    }
 			  }
@@ -85,5 +85,31 @@ public class Test {
 			    throw new IOException("Failed to delete " + file);
 			  }
 			}
+	public static int nombreClasses(File[] directoryListing) {
+		
+		int nombre = 0;
+		if (directoryListing != null) {
+		      for (File child : directoryListing) 
+		      {
+		    	  String extension = "";
+		    	  int i = child.getName().lastIndexOf('.');
+		    	  if (i > 0) {
+		    	      extension = child.getName().substring(i+1);
+		    	  }
+
+		    	  if(!child.isDirectory() && extension.equals("java"))
+		    	  {
+		    		  nombre++;
+		    	  }
+		    	  else if (child.isDirectory())
+		    	  {
+		  		   nombre += nombreClasses(child.listFiles());
+		    	  }
+		    	  
+		      }
+		      
+		   }
+		return nombre;
+	}
 	}
 
