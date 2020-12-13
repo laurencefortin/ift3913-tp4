@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Optional;
  
 import org.eclipse.jgit.api.Git;
@@ -63,10 +64,10 @@ public class Test {
 			
 			/* On print tous les commits*/
 			String treeName = "refs/heads/master"; // tag or branch
-			for (RevCommit commit : git.log().add(repo.resolve(treeName)).call()) {
-			    System.out.println(commit.getName());
+			HashMap<String, Integer> valeurCSV = new HashMap<String, Integer>();
+			for (RevCommit commit : git.log().add(repo.resolve(treeName)).call()) {		    
 			    git.checkout().setName(commit.getName()).call();
-			    System.out.println(nombreClasses(localRepoDir.listFiles()));
+			    valeurCSV.put(commit.getName(), nombreClasses(localRepoDir.listFiles()));
 			}
 			
 		}
