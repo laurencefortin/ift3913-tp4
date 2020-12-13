@@ -35,7 +35,7 @@ public class Test {
 		 * Equivalent of --> $ git clone https://github.com/Ravikharatmal/test.git
 		 */
 		System.out.println("\n>>> Cloning repository\n");
-		Repository repo = Git.cloneRepository().setProgressMonitor(consoleProgressMonitor).setDirectory(localRepoDir).setURI("https://github.com/Ravikharatmal/test.git").call().getRepository();
+		Repository repo = Git.cloneRepository().setProgressMonitor(consoleProgressMonitor).setDirectory(localRepoDir).setURI("https://github.com/laurencefortin/ift3913-tp4").call().getRepository();
  
 		try (Git git = new Git(repo)) {
 			/*
@@ -57,6 +57,13 @@ public class Test {
 			System.out.println("\n>>> Printing commit log\n");
 			Iterable<RevCommit> commitLog = git.log().call();
 			commitLog.forEach(r -> System.out.println(r.getFullMessage()));
+			
+			
+			/* On print tous les commits*/
+			String treeName = "refs/heads/master"; // tag or branch
+			for (RevCommit commit : git.log().add(repo.resolve(treeName)).call()) {
+			    System.out.println(commit.getName());
+			}
  
 		}
  
