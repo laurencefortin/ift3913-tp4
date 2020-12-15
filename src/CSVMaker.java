@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.List;
 
-public class CSV {
+public class CSVMaker {
 		//Delimiter used in CSV file
 		private static final String COMMA_DELIMITER = ", ";
 		private static final String NEW_LINE_SEPARATOR = "\n";
@@ -14,7 +14,7 @@ public class CSV {
 	    //CSV file header
 	    private static final String FILE_HEADER = "id_version, n_classes";
 	    
-		public CSV(LinkedHashMap<String, Integer> valeurCSV) {
+		public CSVMaker(LinkedHashMap<String, Integer> valeurCSV) {
 			 ecrireCSV(valeurCSV);
 		 }
 		

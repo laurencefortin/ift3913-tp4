@@ -1,0 +1,14 @@
+CC, methode_BC, chemin, classe, methode, methode_LOC, methode_CLOC, methode_DC
+1, 0.3, C:\Users\Public\ift3913_tp4\src\CSV.java, CSV.java, ecrireCSV(LinkedHashMap<String, Integer> valeurCSV  ), 30, 9, 0.3
+1, 0.5, C:\Users\Public\ift3913_tp4\src\Test.java, Test.java, main(String[] args), 44, 22, 0.5
+4, 0.0, C:\Users\Public\ift3913_tp4\src\Test.java, Test.java, nombreClasses(File[] directoryListing), 22, 0, 0.0
+1, 0.3, C:\Users\Public\ift3913_tp4\src\CSV.java, CSV.java, ecrireCSV(List<Classe> ListeClasse), 30, 9, 0.3
+1, 0.5365854, C:\Users\Public\ift3913_tp4\src\Test.java, Test.java, main(String[] args), 41, 22, 0.5365854
+4, 0.0, C:\Users\Public\ift3913_tp4\src\Test.java, Test.java, nombreClasses(File[] directoryListing), 22, 0, 0.0
+1, 0.5365854, C:\Users\Public\ift3913_tp4\src\Test.java, Test.java, main(String[] args), 41, 22, 0.5365854
+4, 0.0, C:\Users\Public\ift3913_tp4\src\Test.java, Test.java, nombreClasses(File[] directoryListing), 22, 0, 0.0
+1, 0.5609756, C:\Users\Public\ift3913_tp4\src\Test.java, Test.java, main(String[] args), 41, 23, 0.5609756
+1, 0.5609756, C:\Users\Public\ift3913_tp4\src\Test.java, Test.java, main(String[] args), 41, 23, 0.5609756
+1, 0.57894737, C:\Users\Public\ift3913_tp4\src\Test.java, Test.java, main(String[] args), 38, 22, 0.57894737
+1, 0.57894737, C:\Users\Public\ift3913_tp4\src\Test.java, Test.java, main(String[] args), 38, 22, 0.57894737
+1, 0.6060606, C:\Users\Public\ift3913_tp4\src\Test.java, Test.java, main(String[] args), 33, 20, 0.6060606
