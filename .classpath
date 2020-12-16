@@ -9,8 +9,8 @@
 	<classpathentry kind="lib" path="C:/Users/Julien/Desktop/ift3913-tp4/org.eclipse.jgit-5.9.0.202009080501-r.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Julien/Desktop/ift3913-tp4/slf4j-api-1.7.30.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Julien/Desktop/ift3913-tp4/slf4j-simple-1.6.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Julien/Desktop/ift3913-tp4/TP1Modif.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Julien/Desktop/ift3913-tp4/commons-lang3-3.11.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Julien/Desktop/ift3913-tp4/opencsv-5.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Julien/Desktop/Dev4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

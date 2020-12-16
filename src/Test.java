@@ -71,37 +71,42 @@ public class Test {
 			/* On print tous les commits*/
 			String treeName = "refs/heads/master"; // tag or branch
 			LinkedHashMap<String, Integer> valeurCSV = new LinkedHashMap<String, Integer>();
+			int compteur = 1;
 			for (RevCommit commit : git.log().add(repo.resolve(treeName)).call()) {	
+				
 				File temp = new File("classes.csv");
 				if(temp.exists())
 				{
 					temp.delete();
-				    Thread.sleep(5000);
-
 				}
 			    git.checkout().setName(commit.getName()).call();
-			    valeurCSV.put(commit.getName(), nombreClasses(localRepoDir.listFiles()));
+			    valeurCSV.put(commit.getName(), nombreClasses(localRepoDir.listFiles()));	
 			    TP.iterateOnFiles(localRepoDir.listFiles());
 			    CSVReader reader = new CSVReader(new FileReader(temp.getAbsolutePath()));
 			    List<String[]> classes = reader.readAll();
 			    reader.close();
 			    ArrayList<String> valeurs = new ArrayList<String>();
-			    for (String[] classe : classes) {
+			    for (int i = compteur; i <= nombreClasses(localRepoDir.listFiles()) + compteur-1;i++) {
+			    	String[] classe = classes.get(i);
 			    	if(!classe[1].contains("classe"))
 			    	{
 			    	System.out.println(classe[1]);
 			        valeurs.add(classe[1]);
 			    	}
 			    }
-			    double mediane = mediane(valeurs);
+			    double mediane = 0.0;
+			    if(!valeurs.isEmpty())
+			    {
+			    	mediane = mediane(valeurs);
+			    }
 			    valeurs.clear();
 			    System.out.println("mediane : " + mediane);
+			    compteur += nombreClasses(localRepoDir.listFiles());
+			    System.out.println(compteur);
+			    System.out.println(nombreClasses(localRepoDir.listFiles()));
 			    }
-			new CSVMaker(valeurCSV);
-
 		}
 
- 
 	}
 	public static void deleteDirectoryRecursion(File localRepoDir) throws IOException {
 		  if (localRepoDir.isDirectory()) {
