@@ -44,7 +44,7 @@ public class Test {
 		deleteDirectoryRecursion(localRepoDir);
 		}
 		
-		Repository repo = Git.cloneRepository().setProgressMonitor(consoleProgressMonitor).setDirectory(localRepoDir).setURI("https://github.com/laurencefortin/ift3913-tp4").call().getRepository();
+		Repository repo = Git.cloneRepository().setProgressMonitor(consoleProgressMonitor).setDirectory(localRepoDir).setURI("https://github.com/jfree/jfreechart").call().getRepository();
  
 		try (Git git = new Git(repo)) {
 			/*
@@ -63,17 +63,20 @@ public class Test {
 			 * Equivalent of --> $ git log
 			 * 
 			 */
-			System.out.println("\n>>> Printing commit log\n");
-			Iterable<RevCommit> commitLog = git.log().call();
-			commitLog.forEach(r -> System.out.println(r.getFullMessage()));
+			//System.out.println("\n>>> Printing commit log\n");
+			//Iterable<RevCommit> commitLog = git.log().call();
+			//commitLog.forEach(r -> System.out.println(r.getFullMessage()));
 			
 			
 			/* On print tous les commits*/
 			String treeName = "refs/heads/master"; // tag or branch
 			LinkedHashMap<String, Integer> valeurCSV = new LinkedHashMap<String, Integer>();
+			ArrayList<Double> mediane = new ArrayList<Double>();
 			int compteur = 1;
+			int compteurCommits = 0;
 			for (RevCommit commit : git.log().add(repo.resolve(treeName)).call()) {	
-				
+				if(compteurCommits < 400)
+				{
 				File temp = new File("classes.csv");
 				if(temp.exists())
 				{
@@ -81,7 +84,7 @@ public class Test {
 				}
 			    git.checkout().setName(commit.getName()).call();
 			    valeurCSV.put(commit.getName(), nombreClasses(localRepoDir.listFiles()));	
-			    TP.iterateOnFiles(localRepoDir.listFiles());
+			    CSV csv = new CSV(TP.iterateOnFiles(localRepoDir.listFiles()));
 			    CSVReader reader = new CSVReader(new FileReader(temp.getAbsolutePath()));
 			    List<String[]> classes = reader.readAll();
 			    reader.close();
@@ -90,22 +93,24 @@ public class Test {
 			    	String[] classe = classes.get(i);
 			    	if(!classe[1].contains("classe"))
 			    	{
-			    	System.out.println(classe[1]);
 			        valeurs.add(classe[1]);
 			    	}
 			    }
-			    double mediane = 0.0;
+			    double medianeValeur = 0.0;
 			    if(!valeurs.isEmpty())
 			    {
-			    	mediane = mediane(valeurs);
+			    	medianeValeur = mediane(valeurs);
 			    }
 			    valeurs.clear();
-			    System.out.println("mediane : " + mediane);
 			    compteur += nombreClasses(localRepoDir.listFiles());
-			    System.out.println(compteur);
-			    System.out.println(nombreClasses(localRepoDir.listFiles()));
+			    mediane.add(medianeValeur);
+			    System.out.println("Current commit " +compteurCommits);
+			    compteurCommits++;
+				}
 			    }
+			CSVMaker test = new CSVMaker(valeurCSV, mediane);
 		}
+		
 
 	}
 	public static void deleteDirectoryRecursion(File localRepoDir) throws IOException {

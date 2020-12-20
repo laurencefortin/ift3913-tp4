@@ -12,17 +12,17 @@ public class CSVMaker {
 		private static final String NEW_LINE_SEPARATOR = "\n";
 	    
 	    //CSV file header
-	    private static final String FILE_HEADER = "id_version, n_classes";
+	    private static final String FILE_HEADER = "id_version, n_classes, m_c_BC";
 	    
-		public CSVMaker(LinkedHashMap<String, Integer> valeurCSV) {
-			 ecrireCSV(valeurCSV);
+		public CSVMaker(LinkedHashMap<String, Integer> valeurCSV, ArrayList<Double> mediane) {
+			 ecrireCSV(valeurCSV, mediane);
 		 }
 		
 		  /**
 		   * permet d'ecrire le csv de classe 
 		   * @return un fichier csv creer remplis d'informations sur les classes
 		   * */ 
-		    public void ecrireCSV(LinkedHashMap<String, Integer> valeurCSV  ){
+		    public void ecrireCSV(LinkedHashMap<String, Integer> valeurCSV, ArrayList<Double> mediane  ){
  
 				String fileName = "file.csv";
 		        FileWriter fileWriter = null;
@@ -37,13 +37,16 @@ public class CSVMaker {
 		            fileWriter.append(NEW_LINE_SEPARATOR);
 		             
 		            //Write a new student object list to the CSV file
-		           
+		           int compteur = 0;
 		            for (Map.Entry value : valeurCSV.entrySet()) {
 		            	fileWriter.append(String.valueOf(value.getKey()));  //id_version hexadecimal
 		                fileWriter.append(COMMA_DELIMITER);
 		                fileWriter.append(String.valueOf(value.getValue())); //n_classes nombre de fichier java
 		                fileWriter.append(COMMA_DELIMITER);
+		                fileWriter.append(String.valueOf(mediane.get(compteur)));
+		                fileWriter.append(COMMA_DELIMITER);
 		                fileWriter.append(NEW_LINE_SEPARATOR);
+		                compteur++;
 		            }		              
 		           
 		        } catch (Exception e) {
