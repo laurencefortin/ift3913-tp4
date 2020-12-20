@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Scanner;
+
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.ListBranchCommand.ListMode;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -19,15 +21,17 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
 
-
-
-public class Test {
+public class Proto {
  
 	public static void main(String[] args)
 			throws IOException, InvalidRemoteException, TransportException, GitAPIException, InterruptedException, CsvException {
  
 		// Local directory on this machine where we will clone remote repo.
 		File localRepoDir = new File("C:\\Users\\Public\\ift3913_tp4");
+		System.out.println("Veuillez entrer l'adresse du repo desire: ");
+		Scanner scanner = new Scanner(System.in); 
+		
+		String lien = scanner.nextLine();
 		
 		
 		// Monitor to get git command progress printed on java System.out console
@@ -36,16 +40,15 @@ public class Test {
 		/*
 		 * Git clone remote repo into local directory.
 		 * 
-		 * Equivalent of --> $ git clone https://github.com/Ravikharatmal/test.git
 		 */
 		System.out.println("\n>>> Cloning repository\n");
 		if(localRepoDir.exists())
 		{
 		deleteDirectoryRecursion(localRepoDir);
 		}
-		
-		Repository repo = Git.cloneRepository().setProgressMonitor(consoleProgressMonitor).setDirectory(localRepoDir).setURI("https://github.com/jfree/jfreechart").call().getRepository();
- 
+
+		Repository repo = Git.cloneRepository().setProgressMonitor(consoleProgressMonitor).setDirectory(localRepoDir).setURI(lien.toString()).call().getRepository();
+		scanner.close();
 		try (Git git = new Git(repo)) {
 			/*
 			 * Get list of all branches (including remote) & print
@@ -108,7 +111,7 @@ public class Test {
 			    compteurCommits++;
 				}
 			    }
-			CSVMaker test = new CSVMaker(valeurCSV, mediane);
+			 new CSVMaker(valeurCSV, mediane);
 		}
 		
 
