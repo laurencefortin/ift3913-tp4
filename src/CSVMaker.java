@@ -22,7 +22,7 @@ public class CSVMaker {
 		   * */
   public void ecrireCSV(LinkedHashMap < String, Integer > valeurCSV, ArrayList < Double > mediane) {
 
-    String fileName = "file.csv";
+    String fileName = "TP4.csv";
     FileWriter fileWriter = null;
 
     try {

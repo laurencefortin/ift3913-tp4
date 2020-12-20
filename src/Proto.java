@@ -44,7 +44,6 @@ public class Proto {
 		System.out.println("\n>>> Cloning repository\n");
 		if(localRepoDir.exists())
 		{
-		deleteDirectoryRecursion(localRepoDir);
 		}
 
 		Repository repo = Git.cloneRepository().setProgressMonitor(consoleProgressMonitor).setDirectory(localRepoDir).setURI(lien.toString()).call().getRepository();
@@ -60,16 +59,7 @@ public class Proto {
 			git.branchList().setListMode(ListMode.ALL).call().stream().forEach(r -> System.out.println(r.getName()));
  
 			
-			/*
-			 * Verify commit log
-			 * 
-			 * Equivalent of --> $ git log
-			 * 
-			 */
-			//System.out.println("\n>>> Printing commit log\n");
-			//Iterable<RevCommit> commitLog = git.log().call();
-			//commitLog.forEach(r -> System.out.println(r.getFullMessage()));
-			
+		
 			
 			/* On print tous les commits*/
 			String treeName = "refs/heads/master"; // tag or branch
@@ -77,6 +67,7 @@ public class Proto {
 			ArrayList<Double> mediane = new ArrayList<Double>();
 			int compteur = 1;
 			int compteurCommits = 0;
+			System.out.println(compteurCommits);
 			for (RevCommit commit : git.log().add(repo.resolve(treeName)).call()) {	
 				if(compteurCommits < 400)
 				{
@@ -107,11 +98,11 @@ public class Proto {
 			    valeurs.clear();
 			    compteur += nombreClasses(localRepoDir.listFiles());
 			    mediane.add(medianeValeur);
-			    System.out.println("Current commit " +compteurCommits);
+			    System.out.println("Current commit " + compteurCommits);
 			    compteurCommits++;
 				}
 			    }
-			 new CSVMaker(valeurCSV, mediane);
+			 CSVMaker csv = new CSVMaker(valeurCSV, mediane);
 		}
 		
 
